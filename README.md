@@ -25,7 +25,17 @@
 3. [GitHub personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
 
-## 3. Steps to execute the  code
+## 3. Content
+
+This repo contents the following files:
+
+- **README.md** file with information about the code and instructions for its execution
+- **main.tf** - Contains provider configuration and all resources 
+- **variables.tf** - The variables used in the code with their description or default values
+- **locals.tf** - Local values used to make the code more dynamic as 'for' expressions are used
+- **terraform.tfvars** - More sensitive variables with empty values which require your input
+
+## 4. Steps to execute the  code
 
 Once you clone this repository on your machine, please proceed with the following steps:
 
