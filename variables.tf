@@ -3,25 +3,25 @@ variable "tfe_task_org" {
 }
 
 variable "tfe_task_email" {
-  description = "Email for the organization"
+  description = " Admin email address."
+}
+
+variable "gh_personal_token" {
+  description = "The token string you were given by your VCS provider, e.g. ghp_xxxxxxxxxxxxxxx for a GitHub personal access token"
 }
 
 variable "project_name" {
   default = "TFE-Project"
 }
 
-variable "oauth_github" {
-  description = "The OAuth token for GitHub."
-}
-
 variable "vsc_workspace_name" {
   default = "aws-gh-repo-foreach"
 }
 
-variable "github_username" {
-  description = "The GH account where the repository is located."
-}
-
 variable "tfe_cli_var_set_name" {
   default = "CLI Variable Set"
+}
+
+variable "oauth_gh_name" {
+  default = "tfe-task-github-oauth-client"
 }

@@ -19,6 +19,16 @@ resource "tfe_project" "tfe_task_project" {
   organization = tfe_organization.tfe_task_org.name
 }
 
+# Create an Oauth client which represents the connection between an organization and a VCS provider.
+resource "tfe_oauth_client" "tfe_oauth_github" {
+  name             = var.oauth_gh_name
+  organization     = tfe_organization.tfe_task_org.name
+  api_url          = "https://api.github.com"
+  http_url         = "https://github.com"
+  oauth_token      = var.gh_personal_token
+  service_provider = "github"
+}
+
 # Create a workspace with VCS-driven workflow
 resource "tfe_workspace" "tfe_vcs_foreach" {
   name           = var.vsc_workspace_name
@@ -27,8 +37,8 @@ resource "tfe_workspace" "tfe_vcs_foreach" {
   project_id     = tfe_project.tfe_task_project.id
   vcs_repo {
     branch         = "main"
-    identifier     = "${var.github_username}/gh-repo-foreach-10"
-    oauth_token_id = var.oauth_github
+    identifier     = "rvassileva/gh-repo-foreach-10"
+    oauth_token_id = tfe_oauth_client.tfe_oauth_github.oauth_token_id
   }
 }
 
@@ -42,9 +52,9 @@ resource "tfe_workspace" "tfe_cli_workspaces" {
 
 # Create variable set for the CLI workspaces
 resource "tfe_variable_set" "tfe_cli_var_set" {
-  name          = var.tfe_cli_var_set_name
-  description   = "Variable set for the CLI workspaces."
-  organization  = tfe_organization.tfe_task_org.name
+  name         = var.tfe_cli_var_set_name
+  description  = "Variable set for the CLI workspaces."
+  organization = tfe_organization.tfe_task_org.name
 }
 
 # Attach the variable set to the CLI workspaces
@@ -81,7 +91,7 @@ resource "tfe_variable" "var_terraform" {
 
 resource "tfe_variable" "env_var" {
   key             = "org_id"
-  value           = "org-4v9ybaqmsHcEqghn"
+  value           = "org-xxxxxxxxxxxxxxxx"
   category        = "env"
   description     = "This is the environment variable"
   variable_set_id = tfe_variable_set.tfe_cli_var_set.id
